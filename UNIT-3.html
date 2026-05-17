@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaTeX Complete Guide — Hinglish mein 🎓</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3354;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --accent3: #43e97b;
+    --accent4: #f7971e;
+    --text: #e8eaf6;
+    --text-muted: #8892b0;
+    --code-bg: #0d1117;
+    --tip-bg: #1a2a1a;
+    --tip-border: #43e97b;
+    --warn-bg: #2a1a1a;
+    --warn-border: #ff6584;
+    --info-bg: #1a1a2a;
+    --info-border: #6c63ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #1a1d27 0%, #12152a 50%, #1a1227 100%);
+    border-bottom: 2px solid var(--border);
+    padding: 50px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(108,99,255,0.12) 0%, transparent 60%),
+                radial-gradient(circle at 70% 50%, rgba(67,233,123,0.08) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: 2.8em;
+    font-weight: 800;
+    background: linear-gradient(90deg, #6c63ff, #43e97b, #f7971e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(108,99,255,0.2);
+    border: 1px solid rgba(108,99,255,0.4);
+    color: #a89fff;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-bottom: 18px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* SIDEBAR + LAYOUT */
+  .wrapper {
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar-title {
+    padding: 0 20px 14px;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .sidebar a {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.88em;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+  }
+  .sidebar a:hover {
+    color: var(--text);
+    background: rgba(108,99,255,0.08);
+    border-left-color: var(--accent);
+  }
+  .sidebar .num {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: rgba(108,99,255,0.15);
+    color: var(--accent);
+    border-radius: 5px;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 22px;
+    font-weight: 700;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    flex: 1;
+    padding: 40px 50px;
+    max-width: 900px;
+  }
+
+  /* TOPIC SECTIONS */
+  .topic {
+    margin-bottom: 70px;
+    scroll-margin-top: 24px;
+  }
+  .topic-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .topic-num {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent), #9b59b6);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .topic h2 {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .topic h2 span {
+    color: var(--text-muted);
+    font-size: 0.6em;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* SUB-HEADINGS */
+  .sub-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(108,99,255,0.12);
+    border: 1px solid rgba(108,99,255,0.25);
+    color: #a89fff;
+    font-size: 0.72em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin: 20px 0 8px;
+  }
+
+  p { margin: 10px 0; color: var(--text); }
+
+  /* CODE */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 14px 0;
+    position: relative;
+  }
+  pre::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 8px; right: 14px;
+    font-size: 0.7em;
+    color: var(--text-muted);
+    font-family: monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  code {
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.88em;
+    color: #cdd9e5;
+    line-height: 1.6;
+  }
+  p code, li code {
+    background: rgba(108,99,255,0.15);
+    border: 1px solid rgba(108,99,255,0.25);
+    color: #c5b9ff;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 0.85em;
+  }
+
+  /* Syntax highlighting */
+  .kw { color: #ff7b72; } /* keywords / commands */
+  .cm { color: #8b949e; font-style: italic; } /* comments */
+  .str { color: #a5d6ff; } /* strings / arguments */
+  .pkg { color: #f0883e; } /* packages */
+  .env { color: #7ee787; } /* environments */
+  .num { color: #79c0ff; } /* numbers */
+  .opt { color: #ffa657; } /* options */
+
+  /* BOXES */
+  .box {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-left: 4px solid;
+  }
+  .box-tip { background: var(--tip-bg); border-color: var(--tip-border); }
+  .box-warn { background: var(--warn-bg); border-color: var(--warn-border); }
+  .box-info { background: var(--info-bg); border-color: var(--info-border); }
+  .box-title {
+    font-weight: 700;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+  .box-tip .box-title { color: var(--accent3); }
+  .box-warn .box-title { color: var(--accent2); }
+  .box-info .box-title { color: var(--accent); }
+
+  /* OUTPUT BOX */
+  .output {
+    background: #fafaf0;
+    color: #1a1a1a;
+    border: 2px dashed #c0b060;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-family: 'Times New Roman', serif;
+    font-size: 0.95em;
+    line-height: 1.8;
+  }
+  .output-label {
+    font-size: 0.7em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c0b060;
+    margin-bottom: 8px;
+    font-family: sans-serif;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.9em;
+  }
+  th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:hover td { background: rgba(108,99,255,0.05); }
+
+  /* MINI PROJECT */
+  .project-section {
+    background: linear-gradient(135deg, #12152a, #1a1227);
+    border: 2px solid rgba(108,99,255,0.3);
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 60px;
+  }
+  .project-section h2 {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  /* DIVIDER */
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* BACK TO TOP */
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--accent);
+    font-size: 0.85em;
+    text-decoration: none;
+    border: 1px solid rgba(108,99,255,0.3);
+    padding: 5px 14px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .back-btn:hover {
+    background: rgba(108,99,255,0.15);
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 24px 20px; }
+    .hero { padding: 30px 20px; }
+    .hero h1 { font-size: 1.8em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="badge">📚 Overleaf Learn • Hinglish Edition</div>
+    <h1>LaTeX Complete Guide</h1>
+    <p>Beginner student ke liye — Hinglish mein step-by-step explanation.<br>
+    Har topic mein: Kya hai → Kyun use karte hain → Syntax → Example → Output → Tips</p>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-title">Topics</div>
+  <a href="#t1"><span class="num">1</span> Labelling</a>
+  <a href="#t2"><span class="num">2</span> Table of Contents</a>
+  <a href="#t3"><span class="num">3</span> Coloured Text</a>
+  <a href="#t4"><span class="num">4</span> Boxes</a>
+  <a href="#t5"><span class="num">5</span> Theorems</a>
+  <a href="#t6"><span class="num">6</span> Comments</a>
+  <a href="#t7"><span class="num">7</span> Spacing</a>
+  <a href="#t8"><span class="num">8</span> Special Characters</a>
+  <a href="#t9"><span class="num">9</span> Line Breaking</a>
+  <a href="#t10"><span class="num">10</span> Columns</a>
+  <a href="#t11"><span class="num">11</span> Multi-columns</a>
+  <a href="#t12"><span class="num">12</span> Minipages</a>
+  <a href="#t13"><span class="num">13</span> Page Numbering</a>
+  <a href="#t14"><span class="num">14</span> Footnotes</a>
+  <a href="#t15"><span class="num">15</span> Headers & Footers</a>
+  <a href="#t16"><span class="num">16</span> Fancy Page Styles</a>
+  <a href="#t17"><span class="num">17</span> Shortcuts & Definitions</a>
+  <a href="#project">🚀 Mini Project</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 1: LABELLING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t1">
+  <div class="topic-header">
+    <div class="topic-num">1</div>
+    <h2>Labelling <span>Cross-referencing / Labels</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai? (What is it?)</div>
+  <p>Labelling matlab apne document ke kisi bhi part — jaise section, figure, table, ya equation — ko ek <strong>naam (label)</strong> dena aur phir us naam ke through usse refer karna. Jaise school mein chapters ko number milte hain, waise hi yahan hum LaTeX ko bolte hain: "yeh section ka naam 'intro' hai, aur yahaan pe uska number print karo."</p>
+
+  <div class="sub-label">🎯 Kyun Use Karte Hain?</div>
+  <p>Socho tumhare 50-page document mein ek section hai "Theory" — jo page 7 pe hai. Agar tum likho "See Section 3" aur baad mein ek naya section aane se sab numbers badal jayein, tum phir se hath se sab theek karoge. LaTeX mein <code>\label</code> aur <code>\ref</code> use karo — LaTeX automatically sahi number print karega. 🎉</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="cm">% Step 1: Label lagao</span>
+<span class="kw">\label{</span><span class="str">tumhara-naam</span><span class="kw">}</span>
+
+<span class="cm">% Step 2: Refer karo</span>
+<span class="kw">\ref{</span><span class="str">tumhara-naam</span><span class="kw">}</span>    <span class="cm">% number deta hai</span>
+<span class="kw">\pageref{</span><span class="str">tumhara-naam</span><span class="kw">}</span> <span class="cm">% page number deta hai</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="kw">\section{</span><span class="str">Introduction</span><span class="kw">}</span> <span class="kw">\label{</span><span class="str">sec:intro</span><span class="kw">}</span>
+<span class="cm">% \label hamesha us cheez ke BAAD likhte hain jise label karna hai</span>
+
+Yeh introduction hai.
+
+<span class="kw">\section{</span><span class="str">Theory</span><span class="kw">}</span> <span class="kw">\label{</span><span class="str">sec:theory</span><span class="kw">}</span>
+
+Jaise humne Section~<span class="kw">\ref{</span><span class="str">sec:intro</span><span class="kw">}</span> mein bataya (page~<span class="kw">\pageref{</span><span class="str">sec:intro</span><span class="kw">}</span> par),
+yeh theory section hai.
+
+<span class="kw">\begin{</span><span class="env">equation</span><span class="kw">}</span>
+  E = mc^2 <span class="kw">\label{</span><span class="str">eq:einstein</span><span class="kw">}</span>
+<span class="kw">\end{</span><span class="env">equation</span><span class="kw">}</span>
+
+Equation~<span class="kw">\ref{</span><span class="str">eq:einstein</span><span class="kw">}</span> Einstein ka famous formula hai.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output (PDF mein dikhai dega)</div>
+    <b>1 Introduction</b><br>
+    Yeh introduction hai.<br><br>
+    <b>2 Theory</b><br>
+    Jaise humne Section 1 mein bataya (page 1 par), yeh theory section hai.<br><br>
+    <i>E = mc² &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)</i><br><br>
+    Equation 1 Einstein ka famous formula hai.
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• Label names mein prefix use karo: <code>sec:</code> for sections, <code>eq:</code> for equations, <code>fig:</code> for figures, <code>tab:</code> for tables. Isse dhundna aasaan hoga.<br>
+    • <code>~</code> (tilde) ek "non-breaking space" hai — yeh number ko agle line pe jane nahi deta. Hamesha <code>Section~\ref{}</code> likho, <code>Section \ref{}</code> nahi.</p>
+  </div>
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Overleaf mein <strong>do baar compile</strong> karo! Pehli baar LaTeX labels read karta hai, doosri baar sahi numbers fill karta hai. Agar "??" dikh raha hai, ek baar aur compile karo.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 2: TABLE OF CONTENTS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t2">
+  <div class="topic-header">
+    <div class="topic-num">2</div>
+    <h2>Table of Contents <span>Vishay-Suchi / Index</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Table of Contents (TOC) matlab document ki <strong>vishay-suchi</strong> — jaise books ke shuru mein hoti hai jahan likha hota hai "Chapter 1 — Page 5, Chapter 2 — Page 12." LaTeX yeh automatically banata hai!</p>
+
+  <div class="sub-label">🎯 Kyun Use Karte Hain?</div>
+  <p>Bade documents, theses, reports mein reader ko pata chale ki kya kahan hai. Manually banane pe agar pages badlein to sab galat ho jayega. LaTeX khud sahi page numbers deta hai.</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\tableofcontents</span>   <span class="cm">% Yehi kaafi hai! Bas yeh ek command</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="kw">\tableofcontents</span>   <span class="cm">% Yahan TOC print hoga</span>
+<span class="kw">\newpage</span>           <span class="cm">% Naya page shuru karo</span>
+
+<span class="kw">\section{</span><span class="str">Pehla Adhyay</span><span class="kw">}</span>
+Yeh pehla section hai.
+
+<span class="kw">\subsection{</span><span class="str">Ek Sub-topic</span><span class="kw">}</span>
+Yeh sub-section hai.
+
+<span class="kw">\subsubsection{</span><span class="str">Aur Chhota Topic</span><span class="kw">}</span>
+Yeh sub-sub-section hai.
+
+<span class="kw">\section{</span><span class="str">Doosra Adhyay</span><span class="kw">}</span>
+Yeh doosra section hai.
+
+<span class="kw">\section*{</span><span class="str">Unnumbered Section</span><span class="kw">}</span>
+<span class="cm">% Star (*) lagao to number nahi aayega</span>
+<span class="cm">% Par yeh TOC mein bhi nahi aayega by default</span>
+<span class="kw">\addcontentsline{</span><span class="str">toc</span><span class="kw">}{</span><span class="str">section</span><span class="kw">}{</span><span class="str">Unnumbered Section</span><span class="kw">}</span>
+<span class="cm">% Upar wali command TOC mein manually add karta hai</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output (TOC page)</div>
+    <b>Contents</b><br><br>
+    1 &nbsp;&nbsp; Pehla Adhyay &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2<br>
+    &nbsp;&nbsp; 1.1 &nbsp; Ek Sub-topic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.1.1 &nbsp; Aur Chhota Topic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2<br>
+    2 &nbsp;&nbsp; Doosra Adhyay &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• Depth control ke liye preamble mein likhो: <code>\setcounter{tocdepth}{2}</code> — iska matlab sirf section aur subsection tak dikhao (3 = subsubsection bhi).<br>
+    • <code>book</code> class mein <code>\chapter{}</code> bhi hota hai jo TOC mein aata hai.</p>
+  </div>
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Hamesha <strong>do baar compile</strong> karo Overleaf mein, tabhi TOC sahi page numbers dikhayega!</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 3: COLOURED TEXT -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t3">
+  <div class="topic-header">
+    <div class="topic-num">3</div>
+    <h2>Coloured Text <span>Rangin Alfaz</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX mein text ka <strong>colour badal sakte ho</strong> — red, blue, green, ya koi bhi custom colour. Background colour bhi change ho sakta hai. Iske liye <code>xcolor</code> package use karte hain.</p>
+
+  <div class="sub-label">🎯 Kyun Use Karte Hain?</div>
+  <p>Important words highlight karne ke liye, presentation banane ke liye, ya sirf document ko sundar dikhane ke liye!</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\usepackage{</span><span class="pkg">xcolor</span><span class="kw">}</span>  <span class="cm">% Preamble mein</span>
+
+<span class="kw">\textcolor{</span><span class="str">colour-name</span><span class="kw">}{</span><span class="str">tumhara text</span><span class="kw">}</span>  <span class="cm">% Text colour</span>
+<span class="kw">\colorbox{</span><span class="str">colour-name</span><span class="kw">}{</span><span class="str">tumhara text</span><span class="kw">}</span>   <span class="cm">% Background colour</span>
+<span class="kw">{\color{</span><span class="str">colour-name</span><span class="kw">}</span> <span class="str">text here</span><span class="kw">}</span>         <span class="cm">% Curly braces tak colour</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">xcolor</span><span class="kw">}</span>   <span class="cm">% Colour package load karo</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">% Built-in colours</span>
+<span class="kw">\textcolor{</span><span class="str">red</span><span class="kw">}{</span><span class="str">Yeh laal hai!</span><span class="kw">}</span>
+
+<span class="kw">\textcolor{</span><span class="str">blue</span><span class="kw">}{</span><span class="str">Yeh neela hai!</span><span class="kw">}</span>
+
+<span class="kw">\textcolor{</span><span class="str">green</span><span class="kw">}{</span><span class="str">Yeh hara hai!</span><span class="kw">}</span>
+
+<span class="cm">% Custom colour (RGB se)</span>
+<span class="kw">\textcolor[RGB]{</span><span class="num">128, 0, 128</span><span class="kw">}{</span><span class="str">Yeh purple hai!</span><span class="kw">}</span>
+
+<span class="cm">% Hex colour</span>
+<span class="kw">\textcolor[HTML]{</span><span class="str">FF8C00</span><span class="kw">}{</span><span class="str">Yeh dark orange hai!</span><span class="kw">}</span>
+
+<span class="cm">% Background colour</span>
+<span class="kw">\colorbox{</span><span class="str">yellow</span><span class="kw">}{</span><span class="str">Highlighted text!</span><span class="kw">}</span>
+
+<span class="cm">% Apna colour define karo</span>
+<span class="kw">\definecolor{</span><span class="str">myBlue</span><span class="kw">}{HTML}{</span><span class="str">1a73e8</span><span class="kw">}</span>
+<span class="kw">\textcolor{</span><span class="str">myBlue</span><span class="kw">}{</span><span class="str">Google wala neela!</span><span class="kw">}</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    <span style="color:red">Yeh laal hai!</span><br>
+    <span style="color:blue">Yeh neela hai!</span><br>
+    <span style="color:green">Yeh hara hai!</span><br>
+    <span style="color:purple">Yeh purple hai!</span><br>
+    <span style="color:#FF8C00">Yeh dark orange hai!</span><br>
+    <span style="background:yellow; color:#000; padding:2px 6px;">Highlighted text!</span><br>
+    <span style="color:#1a73e8">Google wala neela!</span>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>Built-in colours: <code>red, blue, green, cyan, magenta, yellow, black, white, gray, orange, violet, purple, brown, pink, teal, lime, olive</code>. <code>xcolor</code> ke saath yeh sab milte hain!</p>
+  </div>
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p><code>\color{}</code> command ke baad ka poora text us colour mein aa jaata hai jab tak curly braces band na ho. Hamesha <code>{\color{red} text}</code> likhо — curly braces mein band karo.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 4: BOXES -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t4">
+  <div class="topic-header">
+    <div class="topic-num">4</div>
+    <h2>Boxes <span>Dabbe / Frames</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX mein text ke <strong>chaaro taraf border/box</strong> laga sakte ho. Jaise notebooks mein important cheezein box mein likhte hain, waise hi!</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">xcolor</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">mdframed</span><span class="kw">}</span>   <span class="cm">% Fancy boxes ke liye</span>
+<span class="kw">\usepackage{</span><span class="pkg">fbox</span><span class="kw">}</span>       <span class="cm">% Basic boxes</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">% 1. Sabse simple box</span>
+<span class="kw">\fbox{</span><span class="str">Yeh simple box hai!</span><span class="kw">}</span>
+
+<span class="cm">% 2. Puri line ka box</span>
+<span class="kw">\fbox{</span><span class="kw">\parbox{</span><span class="num">0.9\textwidth</span><span class="kw">}{</span>
+  Yeh ek puri paragraph ki width ka box hai.
+  Ismein lambi text aa sakti hai.
+<span class="kw">}}</span>
+
+<span class="cm">% 3. Coloured box (xcolor ke saath)</span>
+<span class="kw">\colorbox{</span><span class="str">cyan</span><span class="kw">}{</span><span class="str">Yeh background coloured hai!</span><span class="kw">}</span>
+
+<span class="cm">% 4. mdframed se sundar box</span>
+<span class="kw">\begin{</span><span class="env">mdframed</span><span class="kw">}[</span>
+  <span class="opt">backgroundcolor=yellow!20,</span>  <span class="cm">% 20% yellow</span>
+  <span class="opt">linecolor=red,</span>
+  <span class="opt">linewidth=2pt</span>
+<span class="kw">]</span>
+Yeh ek sundar box hai!
+Ismein paragraphs bhi aa sakte hain.
+<span class="kw">\end{</span><span class="env">mdframed</span><span class="kw">}</span>
+
+<span class="cm">% 5. makebox - fixed width box</span>
+<span class="kw">\makebox[</span><span class="num">5cm</span><span class="kw">][c]{</span><span class="str">Centered in 5cm</span><span class="kw">}</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    <span style="border:1.5px solid #000; padding:2px 6px;">Yeh simple box hai!</span><br><br>
+    <span style="border:1.5px solid #000; padding:6px; display:block;">Yeh ek puri paragraph ki width ka box hai. Ismein lambi text aa sakti hai.</span><br>
+    <span style="background:cyan; padding:2px 6px; color:#000;">Yeh background coloured hai!</span><br><br>
+    <div style="background:#ffff99; border:2px solid red; padding:8px 12px; font-family:serif;">
+      Yeh ek sundar box hai!<br>Ismein paragraphs bhi aa sakte hain.
+    </div>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• <code>tcolorbox</code> package aur bhi powerful aur sundar boxes deta hai — thesis aur reports ke liye best hai.<br>
+    • <code>yellow!20</code> ka matlab hai 20% yellow colour (xcolor feature).</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 5: THEOREMS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t5">
+  <div class="topic-header">
+    <div class="topic-num">5</div>
+    <h2>Theorems <span>Siddhant / Pramanik</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Math ya science documents mein <strong>Theorem, Lemma, Corollary, Definition, Proof</strong> jaise special sections hote hain. LaTeX inhe automatically number karta hai aur special style mein dikhata hai.</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">amsthm</span><span class="kw">}</span>   <span class="cm">% Theorem package — ZARURI hai!</span>
+<span class="kw">\usepackage{</span><span class="pkg">amsmath</span><span class="kw">}</span>  <span class="cm">% Math ke liye</span>
+
+<span class="cm">% Preamble mein define karo:</span>
+<span class="kw">\newtheorem{</span><span class="str">theorem</span><span class="kw">}{</span><span class="str">Theorem</span><span class="kw">}</span>
+<span class="kw">\newtheorem{</span><span class="str">lemma</span><span class="kw">}{</span><span class="str">Lemma</span><span class="kw">}</span>
+<span class="kw">\newtheorem{</span><span class="str">corollary</span><span class="kw">}{</span><span class="str">Corollary</span><span class="kw">}</span>
+<span class="kw">\newtheorem{</span><span class="str">definition</span><span class="kw">}{</span><span class="str">Definition</span><span class="kw">}</span>
+<span class="kw">\theoremstyle{</span><span class="str">remark</span><span class="kw">}</span>  <span class="cm">% Italic nahi, normal style</span>
+<span class="kw">\newtheorem*{</span><span class="str">remark</span><span class="kw">}{</span><span class="str">Remark</span><span class="kw">}</span>  <span class="cm">% * matlab no numbering</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">definition</span><span class="kw">}</span>
+  Ek <span class="kw">\textbf{</span><span class="str">prime number</span><span class="kw">}</span> woh natural number hai jo sirf 
+  1 aur khud se divisible ho.
+<span class="kw">\end{</span><span class="env">definition</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">theorem</span><span class="kw">}[</span><span class="opt">Pythagoras</span><span class="kw">]</span>
+  Right-angled triangle mein: $a^2 + b^2 = c^2$
+<span class="kw">\end{</span><span class="env">theorem</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">proof</span><span class="kw">}</span>
+  <span class="cm">% proof environment automatically "Proof." likhta hai</span>
+  Yahan proof likhenge... $\square$ automatically aata hai.
+<span class="kw">\end{</span><span class="env">proof</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">remark</span><span class="kw">}</span>
+  Yeh theorem 2500 saal purana hai!
+<span class="kw">\end{</span><span class="env">remark</span><span class="kw">}</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    <p><b>Definition 1.</b> <em>Ek <b>prime number</b> woh natural number hai jo sirf 1 aur khud se divisible ho.</em></p>
+    <p><b>Theorem 1</b> (Pythagoras). <em>Right-angled triangle mein: a² + b² = c²</em></p>
+    <p><b>Proof.</b> Yahan proof likhenge... □</p>
+    <p><b>Remark.</b> Yeh theorem 2500 saal purana hai!</p>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• <code>\newtheorem{theorem}{Theorem}[section]</code> likho toh numbering section-wise hogi (1.1, 1.2, 2.1...).<br>
+    • Square-box (□) proof ka end symbol hota hai — <code>proof</code> environment khud laata hai.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 6: COMMENTS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t6">
+  <div class="topic-header">
+    <div class="topic-num">6</div>
+    <h2>Comments <span>Tippani / Private Notes</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Comments wo text hai jo <strong>PDF mein nahi dikhta</strong> — sirf .tex file mein rahta hai tumhare liye notes ke taur pe. Programming mein bhi comments hote hain na — same concept!</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="cm">% Yeh ek comment hai — PDF mein nahi aayega</span>
+
+<span class="cm">% Percentage sign (%) se comment start hota hai</span>
+<span class="cm">% Yeh line ka baaki hissa ignore ho jaata hai</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">comment</span><span class="kw">}</span>  <span class="cm">% Multi-line comments ke liye</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+Yeh text PDF mein aayega. <span class="cm">% Yeh comment PDF mein nahi aayega</span>
+
+<span class="cm">% TODO: Yahan baad mein equation likhni hai</span>
+<span class="cm">% NOTE: Is section ko check karna hai</span>
+
+Doosra paragraph.
+
+<span class="cm">% Pura block comment karna hai? comment package use karo:</span>
+<span class="kw">\begin{</span><span class="env">comment</span><span class="kw">}</span>
+  Yeh poora block PDF mein nahi aayega.
+  Kai lines ho sakti hain.
+  Matlab yeh sab chhupa hua hai!
+<span class="kw">\end{</span><span class="env">comment</span><span class="kw">}</span>
+
+Teesra paragraph — normal hai.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    Yeh text PDF mein aayega.<br><br>
+    Doosra paragraph.<br><br>
+    Teesra paragraph — normal hai.
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• Overleaf mein shortcut: <strong>Ctrl+/ (Windows)</strong> ya <strong>Cmd+/ (Mac)</strong> — selected text comment ban jaata hai!<br>
+    • TODO comments likho apne liye: <code>% TODO: equation add karni hai</code></p>
+  </div>
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Agar tumhare text mein actual <code>%</code> sign likhna hai (jaise "50% discount"), toh <code>\%</code> likho — warna LaTeX usse comment samjhega!</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 7: SPACING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t7">
+  <div class="topic-header">
+    <div class="topic-num">7</div>
+    <h2>Spacing <span>Jagah / Doori</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX khud spacing manage karta hai — lekin kabhi kabhi hume <strong>extra space, horizontal ya vertical jagah</strong> chahiye hoti hai. Inke liye special commands hain.</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">%--- HORIZONTAL SPACING (Seedhi jagah) ---</span>
+A<span class="kw">\,</span>B       <span class="cm">% thin space (choti jagah)</span>
+A<span class="kw">\;</span>B       <span class="cm">% medium space</span>
+A<span class="kw">\quad</span>B   <span class="cm">% 1em space (ek M jaisi jagah)</span>
+A<span class="kw">\qquad</span>B  <span class="cm">% 2em space (do M jaisi jagah)</span>
+A<span class="kw">\hspace{</span><span class="num">2cm</span><span class="kw">}</span>B  <span class="cm">% bilkul 2cm jagah</span>
+A<span class="kw">\hfill</span>B   <span class="cm">% bachi hui puri jagah bhar deta hai</span>
+
+<span class="kw">\vspace{</span><span class="num">1cm</span><span class="kw">}</span>  <span class="cm">% Vertical: 1cm upar-neeche jagah</span>
+
+<span class="cm">%--- LINE SPACING ---</span>
+<span class="cm">% Preamble mein setspace package use karo:</span>
+
+Yeh normal spacing hai.
+
+<span class="kw">\bigskip</span>   <span class="cm">% Badi vertical jagah</span>
+<span class="kw">\medskip</span>   <span class="cm">% Beech ki jagah</span>
+<span class="kw">\smallskip</span> <span class="cm">% Chhoti jagah</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="sub-label">📋 Spacing Quick Reference</div>
+  <table>
+    <tr><th>Command</th><th>Matlab</th><th>Kitni jagah?</th></tr>
+    <tr><td><code>\,</code></td><td>Thin space</td><td>3/18 em</td></tr>
+    <tr><td><code>\quad</code></td><td>Em space</td><td>1 em (~font size)</td></tr>
+    <tr><td><code>\qquad</code></td><td>Double em</td><td>2 em</td></tr>
+    <tr><td><code>\hspace{Xcm}</code></td><td>Fixed horizontal</td><td>Tum batao</td></tr>
+    <tr><td><code>\vspace{Xcm}</code></td><td>Fixed vertical</td><td>Tum batao</td></tr>
+    <tr><td><code>\hfill</code></td><td>Fill space</td><td>Bachi jagah bhar do</td></tr>
+    <tr><td><code>\smallskip</code></td><td>Chhoti jagah</td><td>3pt</td></tr>
+    <tr><td><code>\medskip</code></td><td>Beech ki</td><td>6pt</td></tr>
+    <tr><td><code>\bigskip</code></td><td>Badi jagah</td><td>12pt</td></tr>
+  </table>
+
+  <div class="sub-label">💻 Line Spacing Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">setspace</span><span class="kw">}</span>  <span class="cm">% Line spacing ke liye</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="kw">\singlespacing</span>  <span class="cm">% Normal (1x)</span>
+Yeh single spacing hai.
+
+<span class="kw">\onehalfspacing</span>  <span class="cm">% 1.5x spacing</span>
+Yeh derhaa spacing hai.
+
+<span class="kw">\doublespacing</span>  <span class="cm">% 2x spacing</span>
+Yeh double spacing hai.
+
+<span class="kw">\setstretch{</span><span class="num">1.8</span><span class="kw">}</span>  <span class="cm">% Custom: 1.8x</span>
+Yeh custom 1.8x spacing hai.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p><code>\vspace{}</code> paragraph ke beech kaam karta hai, paragraph start pe nahi. Agar koi effect nahi ho raha, toh <code>\vspace*{}</code> try karo (star wala force karta hai).</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 8: SPECIAL CHARACTERS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t8">
+  <div class="topic-header">
+    <div class="topic-num">8</div>
+    <h2>Special Characters <span>Vishesh Chinh</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX mein kuch characters <strong>reserved hain</strong> — inhe directly type karne se LaTeX confuse ho jaata hai. Inmein hain: <code># $ % ^ & _ { } ~ \</code>. Inhe likhne ke liye special commands chahiye.</p>
+
+  <table>
+    <tr><th>Character</th><th>LaTeX mein kaise likhein</th><th>Kyun special hai?</th></tr>
+    <tr><td><code>#</code></td><td><code>\#</code></td><td>Macro arguments ke liye</td></tr>
+    <tr><td><code>$</code></td><td><code>\$</code></td><td>Math mode start karta hai</td></tr>
+    <tr><td><code>%</code></td><td><code>\%</code></td><td>Comment start karta hai</td></tr>
+    <tr><td><code>^</code></td><td><code>\^{}</code></td><td>Superscript in math</td></tr>
+    <tr><td><code>&amp;</code></td><td><code>\&amp;</code></td><td>Table column separator</td></tr>
+    <tr><td><code>_</code></td><td><code>\_</code></td><td>Subscript in math</td></tr>
+    <tr><td><code>{</code></td><td><code>\{</code></td><td>Group start</td></tr>
+    <tr><td><code>}</code></td><td><code>\}</code></td><td>Group end</td></tr>
+    <tr><td><code>~</code></td><td><code>\~{}</code> ya <code>\textasciitilde</code></td><td>Non-breaking space</td></tr>
+    <tr><td><code>\</code></td><td><code>\textbackslash{}</code></td><td>Command start karta hai</td></tr>
+    <tr><td><code>...</code></td><td><code>\ldots</code></td><td>Ellipsis (teen dots)</td></tr>
+    <tr><td><code>—</code></td><td><code>---</code></td><td>Em dash</td></tr>
+    <tr><td><code>–</code></td><td><code>--</code></td><td>En dash</td></tr>
+    <tr><td>"quotes"</td><td><code>``quotes''</code></td><td>LaTeX style quotes</td></tr>
+  </table>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+50<span class="kw">\%</span> discount milega!
+
+Mera email: user<span class="kw">\_</span>name<span class="kw">\@</span>example.com
+
+<span class="kw">\{</span>curly braces<span class="kw">\}</span> aise likhte hain.
+
+Backslash: <span class="kw">\textbackslash{}</span>
+
+Price: <span class="kw">\$</span>99.99
+
+Item 1, Item 2, Item 3<span class="kw">\ldots</span>
+
+<span class="cm">% Quotes:</span>
+``Yeh sahi quotes hain'' (do backtick + do apostrophe)
+
+Ranges ke liye en-dash: Pages 5--10
+
+Em-dash for pause: Woh aaya---aur chala gaya.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    50% discount milega!<br>
+    Mera email: user_name@example.com<br>
+    {curly braces} aise likhte hain.<br>
+    Backslash: \<br>
+    Price: $99.99<br>
+    Item 1, Item 2, Item 3…<br>
+    "Yeh sahi quotes hain"<br>
+    Pages 5–10<br>
+    Woh aaya—aur chala gaya.
+  </div>
+
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Seedhe keyboard ke <code>"</code> quotes mat likho! LaTeX mein backtick <code>``</code> se open aur <code>''</code> (do apostrophe) se close karo. Warna output mein galat dikhe ga.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 9: LINE BREAKING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t9">
+  <div class="topic-header">
+    <div class="topic-num">9</div>
+    <h2>Line Breaking <span>Line Todna / Naya Paragraph</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX mein line breaks aur paragraph breaks ka apna system hai. Simple Enter dene se line nahi todti — iske liye special commands hain.</p>
+
+  <div class="sub-label">📋 Line Break Methods</div>
+  <table>
+    <tr><th>Command</th><th>Matlab</th></tr>
+    <tr><td>Empty line (double Enter)</td><td>Naya paragraph shuru</td></tr>
+    <tr><td><code>\\</code></td><td>Force line break (paragraph nahi)</td></tr>
+    <tr><td><code>\\[1cm]</code></td><td>Line break + extra vertical space</td></tr>
+    <tr><td><code>\newline</code></td><td><code>\\</code> ka alternative</td></tr>
+    <tr><td><code>\newpage</code></td><td>Naya page force karo</td></tr>
+    <tr><td><code>\clearpage</code></td><td>Naya page + sab figures flush karo</td></tr>
+    <tr><td><code>\noindent</code></td><td>Paragraph indentation hatao</td></tr>
+    <tr><td><code>\linebreak</code></td><td>Justified line break</td></tr>
+  </table>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">% Method 1: Naya paragraph (blank line)</span>
+Yeh pehla paragraph hai.
+
+Yeh doosra paragraph hai. (Blank line se alag hua)
+
+<span class="cm">% Method 2: Force line break (same paragraph)</span>
+Pehli line hai. <span class="kw">\\</span>
+Doosri line hai. <span class="kw">\\[0.5cm]</span>
+Teesri line hai — upar 0.5cm gap ke saath.
+
+<span class="cm">% Method 3: Page break</span>
+Yeh page 1 pe hai.
+<span class="kw">\newpage</span>
+Yeh page 2 pe hai.
+
+<span class="cm">% Indentation control:</span>
+<span class="kw">\noindent</span> Yeh paragraph indent nahi hoga.
+
+Normal paragraph indent hoga.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Beginners sochte hain ek Enter se line break hoga — nahi hoga! LaTeX ek Enter ko sirf space maanta hai. <strong>Do Enters</strong> (blank line) se naya paragraph, ya <code>\\</code> se force line break.</p>
+  </div>
+  <div class="box box-tip">
+    <div class="box-title">💡 Tip</div>
+    <p><code>\\</code> sirf text environment mein use karo — math mode, headings, ya preamble mein nahi!</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 10: COLUMNS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t10">
+  <div class="topic-header">
+    <div class="topic-num">10</div>
+    <h2>Columns <span>Khaane / Stambh</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Document ki content ko <strong>2 ya zyada columns</strong> (khaanon) mein baant sakte hain — jaise newspaper ya magazine mein hota hai!</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass[</span><span class="opt">twocolumn</span><span class="kw">]{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="cm">% twocolumn option: poora document do columns mein</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="kw">\onecolumn</span>  <span class="cm">% Temporarily ek column karo</span>
+Yeh heading puri width mein hai.
+
+<span class="kw">\twocolumn</span>  <span class="cm">% Wapas do column</span>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed do eiusmod tempor incididunt ut labore et dolore magna
+aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tip</div>
+    <p>Zyada control ke liye <code>multicol</code> package use karo (agla topic dekho). <code>twocolumn</code> page-level pe hota hai; <code>multicol</code> paragraph-level pe.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 11: MULTI-COLUMNS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t11">
+  <div class="topic-header">
+    <div class="topic-num">11</div>
+    <h2>Multi-columns <span>Kai Khaane Ek Saath</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p><code>multicol</code> package se 2, 3, ya zyada columns bana sakte ho — sirf ek section ke liye bhi. Iska fayda yeh hai ki columns balanced (barabar bhari hui) hoti hain automatically.</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">multicol</span><span class="kw">}</span>    <span class="cm">% Package load karo</span>
+<span class="kw">\usepackage{</span><span class="pkg">lipsum</span><span class="kw">}</span>     <span class="cm">% Dummy text ke liye</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+Yeh pehle single column mein hai — poori width.
+
+<span class="kw">\begin{</span><span class="env">multicols</span><span class="kw">}{</span><span class="num">2</span><span class="kw">}</span>  <span class="cm">% 2 columns shuru</span>
+
+<span class="kw">\lipsum[</span><span class="num">1</span><span class="kw">]</span>  <span class="cm">% Dummy text</span>
+
+<span class="kw">\columnbreak</span>  <span class="cm">% Force karo doosra column start ho</span>
+
+<span class="kw">\lipsum[</span><span class="num">2</span><span class="kw">]</span>
+
+<span class="kw">\end{</span><span class="env">multicols</span><span class="kw">}</span>  <span class="cm">% 2 columns khatam</span>
+
+<span class="cm">% 3 columns bhi ban sakte hain!</span>
+<span class="kw">\begin{</span><span class="env">multicols</span><span class="kw">}{</span><span class="num">3</span><span class="kw">}</span>
+<span class="kw">\lipsum[</span><span class="num">3</span><span class="kw">]</span>
+<span class="kw">\end{</span><span class="env">multicols</span><span class="kw">}</span>
+
+<span class="cm">% Column separator line ke saath:</span>
+<span class="kw">\setlength{\columnsep}{</span><span class="num">20pt</span><span class="kw">}</span>   <span class="cm">% Columns ke beech gap</span>
+<span class="kw">\setlength{\columnseprule}{</span><span class="num">0.5pt</span><span class="kw">}</span> <span class="cm">% Line ki thickness</span>
+
+<span class="kw">\begin{</span><span class="env">multicols</span><span class="kw">}{</span><span class="num">2</span><span class="kw">}</span>
+Yeh column 1 hai. Beech mein ek line dikhe gi.
+
+<span class="kw">\columnbreak</span>
+
+Yeh column 2 hai.
+<span class="kw">\end{</span><span class="env">multicols</span><span class="kw">}</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output (2 column layout)</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; font-family:serif; font-size:0.9em;">
+      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</div>
+      <div>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</div>
+    </div>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• Headings normally single column mein rakhne ke liye: pehle heading likho, phir <code>multicols</code> shuru karo.<br>
+    • Bahut thodi text ke liye <code>multicols*</code> use karo (balanced nahi hoga — last column shorter ho sakta hai).</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 12: MINIPAGES -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t12">
+  <div class="topic-header">
+    <div class="topic-num">12</div>
+    <h2>Minipages <span>Chhota Page — Page ke andar page!</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Minipage ek <strong>page ke andar chhota page</strong> hota hai! Iska use tab hota hai jab tum do cheezein side-by-side rakhna chahte ho — jaise ek image aur uski description ek saath, ya do code blocks alag-alag.</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}[</span><span class="opt">position</span><span class="kw">]{</span><span class="num">width</span><span class="kw">}</span>
+  Content yahan
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+
+<span class="cm">% position: t (top), c (center), b (bottom)</span>
+<span class="cm">% width: 0.4\textwidth ya koi bhi size</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">xcolor</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">% Do minipages side by side</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}[t]{</span><span class="num">0.45\textwidth</span><span class="kw">}</span>
+  <span class="kw">\textbf{</span><span class="str">Left Box</span><span class="kw">}</span>
+  
+  Yeh left side ka content hai.
+  Kuch bhi aa sakta hai yahan.
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+<span class="kw">\hfill</span>  <span class="cm">% Do minipages ke beech jagah</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}[t]{</span><span class="num">0.45\textwidth</span><span class="kw">}</span>
+  <span class="kw">\textbf{</span><span class="str">Right Box</span><span class="kw">}</span>
+  
+  Yeh right side ka content hai.
+  Lists bhi aa sakti hain:
+  <span class="kw">\begin{</span><span class="env">itemize</span><span class="kw">}</span>
+    <span class="kw">\item</span> Pehli baat
+    <span class="kw">\item</span> Doosri baat
+  <span class="kw">\end{</span><span class="env">itemize</span><span class="kw">}</span>
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+
+<span class="kw">\vspace{</span><span class="num">1cm</span><span class="kw">}</span>
+
+<span class="cm">% Teen minipages!</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}{</span><span class="num">0.3\textwidth</span><span class="kw">}</span>
+  <span class="kw">\colorbox{</span><span class="str">red!20</span><span class="kw">}{\parbox{\linewidth}{</span>Box 1: Red<span class="kw">}}</span>
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+<span class="kw">\hfill</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}{</span><span class="num">0.3\textwidth</span><span class="kw">}</span>
+  <span class="kw">\colorbox{</span><span class="str">green!20</span><span class="kw">}{\parbox{\linewidth}{</span>Box 2: Green<span class="kw">}}</span>
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+<span class="kw">\hfill</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}{</span><span class="num">0.3\textwidth</span><span class="kw">}</span>
+  <span class="kw">\colorbox{</span><span class="str">blue!20</span><span class="kw">}{\parbox{\linewidth}{</span>Box 3: Blue<span class="kw">}}</span>
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    <div style="display:flex; gap:20px; font-family:serif; font-size:0.9em; margin-bottom:16px;">
+      <div style="flex:1; border-top:1px solid #ccc; padding-top:4px;"><b>Left Box</b><br><br>Yeh left side ka content hai. Kuch bhi aa sakta hai yahan.</div>
+      <div style="flex:1; border-top:1px solid #ccc; padding-top:4px;"><b>Right Box</b><br><br>Yeh right side ka content hai. Lists bhi aa sakti hain:<br>• Pehli baat<br>• Doosri baat</div>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <div style="flex:1; background:#ffcccc; padding:8px; border-radius:4px;">Box 1: Red</div>
+      <div style="flex:1; background:#ccffcc; padding:8px; border-radius:4px;">Box 2: Green</div>
+      <div style="flex:1; background:#ccccff; padding:8px; border-radius:4px;">Box 3: Blue</div>
+    </div>
+  </div>
+
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Dono minipages ki combined width 1.0 se zyada nahi honi chahiye! Agar dono <code>0.5\textwidth</code> hain, to beech mein <code>\hfill</code> ki jagah nahi bachegi. Use <code>0.48</code> ya <code>0.45</code> karo.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 13: PAGE NUMBERING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t13">
+  <div class="topic-header">
+    <div class="topic-num">13</div>
+    <h2>Page Numbering <span>Page Ke Numbers</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX automatically page numbers deta hai — lekin tum inhe <strong>control kar sakte ho</strong>: kahan se shuru karein, kaunsi style mein (1,2,3 ya i,ii,iii ya A,B,C), ya bilkul hatana bhi.</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">% PAGE NUMBER STYLE:</span>
+<span class="kw">\pagenumbering{</span><span class="str">arabic</span><span class="kw">}</span>    <span class="cm">% 1, 2, 3 (default)</span>
+<span class="kw">\pagenumbering{</span><span class="str">roman</span><span class="kw">}</span>     <span class="cm">% i, ii, iii (lowercase)</span>
+<span class="kw">\pagenumbering{</span><span class="str">Roman</span><span class="kw">}</span>     <span class="cm">% I, II, III (uppercase)</span>
+<span class="kw">\pagenumbering{</span><span class="str">alph</span><span class="kw">}</span>      <span class="cm">% a, b, c</span>
+<span class="kw">\pagenumbering{</span><span class="str">Alph</span><span class="kw">}</span>      <span class="cm">% A, B, C</span>
+
+<span class="cm">% Page number change karo:</span>
+<span class="kw">\setcounter{</span><span class="str">page</span><span class="kw">}{</span><span class="num">5</span><span class="kw">}</span>  <span class="cm">% Ab yeh page 5 maana jayega</span>
+
+<span class="cm">% Page number chhupao:</span>
+<span class="kw">\thispagestyle{</span><span class="str">empty</span><span class="kw">}</span>  <span class="cm">% Sirf is ek page ka number chhupao</span>
+
+<span class="cm">% Poore document se numbers hatao:</span>
+<span class="kw">\pagestyle{</span><span class="str">empty</span><span class="kw">}</span>
+
+<span class="cm">% Real Example: Thesis style</span>
+<span class="kw">\pagenumbering{</span><span class="str">roman</span><span class="kw">}</span>    <span class="cm">% TOC ke liye roman</span>
+<span class="kw">\tableofcontents</span>
+<span class="kw">\newpage</span>
+<span class="kw">\pagenumbering{</span><span class="str">arabic</span><span class="kw">}</span>   <span class="cm">% Main content ke liye arabic</span>
+
+Yeh page 1 hai.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• Thesis mein common pattern: Cover page = no number, TOC = roman (i, ii, iii), Main content = arabic (1, 2, 3).<br>
+    • <code>\pagenumbering{}</code> counter bhi reset karta hai — agar reset nahi chahiye toh sirf style change karo.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 14: FOOTNOTES -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t14">
+  <div class="topic-header">
+    <div class="topic-num">14</div>
+    <h2>Footnotes <span>Paad-tika / Tali-tippani</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Footnote matlab <strong>page ke neeche chhoti notes</strong> — books mein dekha hoga ¹ ya * se reference hota hai aur neeche explanation. LaTeX inhe automatically number karta hai aur neeche place karta hai!</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\footnote{</span><span class="str">Yahan apni note likho</span><span class="kw">}</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+LaTeX<span class="kw">\footnote{</span><span class="str">LaTeX ek document preparation system hai, 
+Leslie Lamport ne banaya tha 1980s mein.</span><span class="kw">}</span> ek bahut powerful 
+tool hai.
+
+Einstein<span class="kw">\footnote{</span><span class="str">Albert Einstein, 1879--1955, Nobel Prize winner.</span><span class="kw">}</span> 
+ne kaha ki $E = mc^2$.
+
+<span class="cm">% Custom footnote symbol:</span>
+<span class="kw">\footnote[</span><span class="opt">*</span><span class="kw">]{</span><span class="str">Star wali footnote!</span><span class="kw">}</span>
+
+<span class="cm">% Footnote manually set karo (table ke andar kaam aata hai):</span>
+Yahan ek note hai<span class="kw">\footnotemark[</span><span class="opt">3</span><span class="kw">]</span>.
+
+<span class="kw">\footnotetext[</span><span class="opt">3</span><span class="kw">]{</span><span class="str">Yeh manually set ki gayi note #3 hai.</span><span class="kw">}</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    <p style="font-family:serif;">LaTeX¹ ek bahut powerful tool hai.</p>
+    <p style="font-family:serif;">Einstein² ne kaha ki <i>E = mc²</i>.</p>
+    <hr style="border-top:1px solid #999; width:30%; margin:16px 0 8px; margin-left:0;">
+    <p style="font-family:serif; font-size:0.8em;">¹ LaTeX ek document preparation system hai, Leslie Lamport ne banaya tha 1980s mein.</p>
+    <p style="font-family:serif; font-size:0.8em;">² Albert Einstein, 1879–1955, Nobel Prize winner.</p>
+  </div>
+
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p><code>\footnote{}</code> table environment ke andar seedha kaam nahi karta! Wahan <code>\footnotemark</code> aur <code>\footnotetext</code> use karo.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 15: HEADERS AND FOOTERS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t15">
+  <div class="topic-header">
+    <div class="topic-num">15</div>
+    <h2>Headers &amp; Footers <span>Sirlaikh aur Padlaikh</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>Header = page ke <strong>upar</strong> text (jaise chapter name, document title).<br>
+  Footer = page ke <strong>neeche</strong> text (jaise page number, date).</p>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+
+<span class="cm">% Basic style switch:</span>
+<span class="cm">% \pagestyle{empty}   — koi header/footer nahi</span>
+<span class="cm">% \pagestyle{plain}   — sirf page number (footer mein)</span>
+<span class="cm">% \pagestyle{headings} — automatic chapter/section headings</span>
+<span class="cm">% \pagestyle{myheadings} — tum control karo</span>
+
+<span class="kw">\pagestyle{</span><span class="str">myheadings</span><span class="kw">}</span>
+<span class="kw">\markright{</span><span class="str">Mera Document --- 2025</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+Yeh text hai. Header mein "Mera Document --- 2025" aayega
+aur footer mein page number.
+
+<span class="cm">% Sirf ek page ka style badlna:</span>
+<span class="kw">\thispagestyle{</span><span class="str">empty</span><span class="kw">}</span>  <span class="cm">% Is page pe koi header/footer nahi</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tip</div>
+    <p>Asal mein powerful headers/footers ke liye <strong>fancyhdr</strong> package use karo — agla topic dekho!</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 16: FANCY PAGE STYLES -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t16">
+  <div class="topic-header">
+    <div class="topic-num">16</div>
+    <h2>Fancy Page Styles <span>Sundar Headers/Footers — fancyhdr</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p><code>fancyhdr</code> package se professional quality ke headers aur footers banate hain — left, center, right mein alag-alag content, decorative lines, aur bahut kuch!</p>
+
+  <div class="sub-label">🗺️ Layout Samjho</div>
+  <pre data-lang="text"><code>┌─────────────────────────────────────────────────────┐
+│  LEFT HEADER  │  CENTER HEADER  │  RIGHT HEADER     │
+│ ─────────────────────────────────────────────────── │
+│                                                     │
+│              Page Content                           │
+│                                                     │
+│ ─────────────────────────────────────────────────── │
+│  LEFT FOOTER  │  CENTER FOOTER  │  RIGHT FOOTER     │
+└─────────────────────────────────────────────────────┘</code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">fancyhdr</span><span class="kw">}</span>    <span class="cm">% Package load karo</span>
+<span class="kw">\usepackage{</span><span class="pkg">lastpage</span><span class="kw">}</span>   <span class="cm">% "Page X of Y" ke liye</span>
+
+<span class="kw">\pagestyle{</span><span class="str">fancy</span><span class="kw">}</span>        <span class="cm">% Fancy style on karo</span>
+<span class="kw">\fancyhf{}</span>               <span class="cm">% Pehle sab clear karo</span>
+
+<span class="cm">% HEADER setup:</span>
+<span class="kw">\fancyhead[L]{</span><span class="str">Mera Project</span><span class="kw">}</span>         <span class="cm">% Left header</span>
+<span class="kw">\fancyhead[C]{</span><span class="str">LaTeX Tutorial</span><span class="kw">}</span>      <span class="cm">% Center header</span>
+<span class="kw">\fancyhead[R]{\thesection}</span>         <span class="cm">% Right: section number</span>
+
+<span class="cm">% FOOTER setup:</span>
+<span class="kw">\fancyfoot[L]{\today}</span>               <span class="cm">% Left footer: aaj ki date</span>
+<span class="kw">\fancyfoot[C]{Confidential}</span>         <span class="cm">% Center footer</span>
+<span class="kw">\fancyfoot[R]{</span><span class="str">Page~</span><span class="kw">\thepage~of~\pageref{LastPage}}</span>  <span class="cm">% "Page 1 of 5"</span>
+
+<span class="cm">% Decorative lines ki thickness:</span>
+<span class="kw">\renewcommand{\headrulewidth}{</span><span class="num">0.8pt</span><span class="kw">}</span>   <span class="cm">% Header line</span>
+<span class="kw">\renewcommand{\footrulewidth}{</span><span class="num">0.4pt</span><span class="kw">}</span>   <span class="cm">% Footer line</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="kw">\section{</span><span class="str">Pehla Section</span><span class="kw">}</span>
+Yahan content hai.
+
+<span class="kw">\section{</span><span class="str">Doosra Section</span><span class="kw">}</span>
+Aur yahan bhi content hai.
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output (Page ka upar aur neeche)</div>
+    <div style="border:1px solid #ccc; font-family:serif; font-size:0.85em;">
+      <div style="display:flex; justify-content:space-between; padding:6px 16px; border-bottom:2px solid #333; background:#f5f5f5;">
+        <span>Mera Project</span>
+        <span>LaTeX Tutorial</span>
+        <span>1</span>
+      </div>
+      <div style="padding:16px; min-height:60px; color:#666; text-align:center; font-style:italic;">... page content ...</div>
+      <div style="display:flex; justify-content:space-between; padding:6px 16px; border-top:1px solid #333; background:#f5f5f5;">
+        <span>May 17, 2026</span>
+        <span>Confidential</span>
+        <span>Page 1 of 5</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• <code>[L]</code> = Left, <code>[C]</code> = Center, <code>[R]</code> = Right.<br>
+    • Double-sided documents mein <code>[LE, RO]</code> (Left Even, Right Odd) pages use karo.<br>
+    • <code>\thepage</code> current page number deta hai, <code>\today</code> aaj ki date.</p>
+  </div>
+  <div class="box box-warn">
+    <div class="box-title">⚠️ Common Mistake</div>
+    <p>Hamesha <code>\fancyhf{}</code> pehle likho — warna purane default headers aur tumhare naye dono saath dikhenge!</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TOPIC 17: SHORTCUTS AND DEFINITIONS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="topic" id="t17">
+  <div class="topic-header">
+    <div class="topic-num">17</div>
+    <h2>Shortcuts &amp; Definitions <span>Apne Commands Banao!</span></h2>
+  </div>
+
+  <div class="sub-label">📖 Kya Hai?</div>
+  <p>LaTeX mein tum <strong>apne khud ke commands</strong> bana sakte ho! Jaise agar baar baar <code>\textcolor{red}{\textbf{Important}}</code> likhna pad raha hai, toh ek shortcut bana lo: <code>\important</code>. Yahi hai custom commands ka jadoo!</p>
+
+  <div class="sub-label">🔧 Syntax</div>
+  <pre data-lang="LaTeX"><code><span class="cm">% Naya command define karo:</span>
+<span class="kw">\newcommand{</span><span class="str">\commandname</span><span class="kw">}[</span><span class="num">number_of_args</span><span class="kw">]{</span><span class="str">definition</span><span class="kw">}</span>
+
+<span class="cm">% Purana command redefine karo:</span>
+<span class="kw">\renewcommand{</span><span class="str">\commandname</span><span class="kw">}{</span><span class="str">new_definition</span><span class="kw">}</span></code></pre>
+
+  <div class="sub-label">💻 Working Example</div>
+  <pre data-lang="LaTeX"><code><span class="kw">\documentclass{</span><span class="pkg">article</span><span class="kw">}</span>
+<span class="kw">\usepackage{</span><span class="pkg">xcolor</span><span class="kw">}</span>
+
+<span class="cm">%--- SIMPLE SHORTCUTS (no arguments) ---</span>
+<span class="kw">\newcommand{</span><span class="str">\myname</span><span class="kw">}{</span><span class="str">Amit Kumar Sharma</span><span class="kw">}</span>
+<span class="kw">\newcommand{</span><span class="str">\uni</span><span class="kw">}{</span><span class="str">Indian Institute of Technology</span><span class="kw">}</span>
+<span class="kw">\newcommand{</span><span class="str">\R</span><span class="kw">}{</span><span class="str">\mathbb{R}</span><span class="kw">}</span>  <span class="cm">% Real numbers symbol</span>
+
+<span class="cm">%--- WITH ARGUMENTS ---</span>
+<span class="kw">\newcommand{</span><span class="str">\highlight</span><span class="kw">}[</span><span class="num">1</span><span class="kw">]{</span><span class="kw">\textcolor{</span><span class="str">red</span><span class="kw">}{\textbf{#1}}}</span>
+<span class="cm">% [1] matlab 1 argument. #1 matlab woh argument yahan aayega.</span>
+
+<span class="kw">\newcommand{</span><span class="str">\colortext</span><span class="kw">}[</span><span class="num">2</span><span class="kw">]{</span><span class="kw">\textcolor{#1}{#2}}</span>
+<span class="cm">% [2] matlab 2 arguments: #1 = colour, #2 = text</span>
+
+<span class="cm">%--- WITH DEFAULT VALUE ---</span>
+<span class="kw">\newcommand{</span><span class="str">\greet</span><span class="kw">}[</span><span class="num">1</span><span class="kw">][</span><span class="opt">World</span><span class="kw">]{</span><span class="str">Hello, #1!</span><span class="kw">}</span>
+<span class="cm">% [1][World] = 1 argument with default "World"</span>
+
+<span class="cm">%--- RENEW: Existing command ko change karo ---</span>
+<span class="kw">\renewcommand{</span><span class="str">\emph</span><span class="kw">}[</span><span class="num">1</span><span class="kw">]{</span><span class="kw">\textcolor{</span><span class="str">blue</span><span class="kw">}{\textit{#1}}}</span>
+<span class="cm">% Ab \emph blue + italic ho jayega</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+Mera naam hai: <span class="kw">\myname</span>
+
+Main padhta hoon: <span class="kw">\uni</span>
+
+Yeh <span class="kw">\highlight{</span><span class="str">bahut zaroori</span><span class="kw">}</span> baat hai!
+
+<span class="kw">\colortext{</span><span class="str">violet</span><span class="kw">}{</span><span class="str">Yeh violet text hai!</span><span class="kw">}</span>
+
+<span class="kw">\greet</span>           <span class="cm">% "Hello, World!" (default)</span>
+<span class="kw">\greet[</span><span class="opt">Rahul</span><span class="kw">]</span>    <span class="cm">% "Hello, Rahul!"</span>
+
+Real numbers: $x \in \R$
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="output">
+    <div class="output-label">📄 Output</div>
+    Mera naam hai: Amit Kumar Sharma<br>
+    Main padhta hoon: Indian Institute of Technology<br>
+    Yeh <span style="color:red;font-weight:bold;">bahut zaroori</span> baat hai!<br>
+    <span style="color:violet;">Yeh violet text hai!</span><br>
+    Hello, World!<br>
+    Hello, Rahul!<br>
+    Real numbers: x ∈ ℝ
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 Tips</div>
+    <p>• Command names mein sirf letters — koi numbers ya special characters nahi.<br>
+    • <code>\newcommand</code> fail karega agar command pehle se exist karti ho — wahan <code>\renewcommand</code> use karo.<br>
+    • Apne saare custom commands ek alag file mein rakho (jaise <code>mymacros.tex</code>) aur <code>\input{mymacros}</code> se include karo — professional approach yahi hai!</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- MINI PROJECT -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="project-section" id="project">
+  <h2>🚀 Mini Project — Sab Topics Ek Saath!</h2>
+  <p style="text-align:center; color:var(--text-muted); margin-bottom:24px;">Ab hum ek complete, professional-looking document banayenge jo upar ke <strong>saare topics</strong> use karta hai.</p>
+
+  <div class="sub-label">📋 Project: "Meri Physics Notebook"</div>
+  <pre data-lang="LaTeX"><code><span class="cm">%============================================
+% MINI PROJECT: Meri Physics Notebook
+% Uses: ALL 17 topics covered above!
+%============================================</span>
+
+<span class="kw">\documentclass[</span><span class="opt">12pt, a4paper</span><span class="kw">]{</span><span class="pkg">article</span><span class="kw">}</span>
+
+<span class="cm">%--- PACKAGES ---</span>
+<span class="kw">\usepackage{</span><span class="pkg">xcolor</span><span class="kw">}</span>         <span class="cm">% Topic 3: Colours</span>
+<span class="kw">\usepackage{</span><span class="pkg">mdframed</span><span class="kw">}</span>       <span class="cm">% Topic 4: Boxes</span>
+<span class="kw">\usepackage{</span><span class="pkg">amsthm, amsmath</span><span class="kw">}</span> <span class="cm">% Topic 5: Theorems</span>
+<span class="kw">\usepackage{</span><span class="pkg">setspace</span><span class="kw">}</span>       <span class="cm">% Topic 7: Spacing</span>
+<span class="kw">\usepackage{</span><span class="pkg">multicol</span><span class="kw">}</span>       <span class="cm">% Topic 11: Multicols</span>
+<span class="kw">\usepackage{</span><span class="pkg">fancyhdr</span><span class="kw">}</span>       <span class="cm">% Topic 16: Fancy headers</span>
+<span class="kw">\usepackage{</span><span class="pkg">lastpage</span><span class="kw">}</span>       <span class="cm">% Topic 16: "Page X of Y"</span>
+<span class="kw">\usepackage{</span><span class="pkg">geometry</span><span class="kw">}</span>       <span class="cm">% Margins set karne ke liye</span>
+<span class="kw">\geometry{</span><span class="opt">margin=2.5cm</span><span class="kw">}</span>
+
+<span class="cm">%--- TOPIC 17: CUSTOM COMMANDS ---</span>
+<span class="kw">\newcommand{</span><span class="str">\important</span><span class="kw">}[</span><span class="num">1</span><span class="kw">]{</span>
+  <span class="kw">\textcolor{</span><span class="str">red</span><span class="kw">}{\textbf{#1}}</span>
+<span class="kw">}</span>
+<span class="kw">\newcommand{</span><span class="str">\R</span><span class="kw">}{</span><span class="str">\mathbb{R}</span><span class="kw">}</span>
+<span class="kw">\newcommand{</span><span class="str">\myname</span><span class="kw">}{</span><span class="str">Rahul Verma</span><span class="kw">}</span>
+<span class="kw">\definecolor{</span><span class="str">myBlue</span><span class="kw">}{HTML}{</span><span class="str">1a56db</span><span class="kw">}</span>
+<span class="kw">\definecolor{</span><span class="str">myGold</span><span class="kw">}{HTML}{</span><span class="str">b8860b</span><span class="kw">}</span>
+
+<span class="cm">%--- TOPIC 5: THEOREM DEFINITIONS ---</span>
+<span class="kw">\newtheorem{</span><span class="str">theorem</span><span class="kw">}{</span><span class="str">Theorem</span><span class="kw">}[</span><span class="opt">section</span><span class="kw">]</span>
+<span class="kw">\newtheorem{</span><span class="str">definition</span><span class="kw">}{</span><span class="str">Definition</span><span class="kw">}[</span><span class="opt">section</span><span class="kw">]</span>
+<span class="kw">\theoremstyle{</span><span class="str">remark</span><span class="kw">}</span>
+<span class="kw">\newtheorem*{</span><span class="str">remark</span><span class="kw">}{</span><span class="str">Remark</span><span class="kw">}</span>
+
+<span class="cm">%--- TOPIC 16: FANCY HEADER/FOOTER ---</span>
+<span class="kw">\pagestyle{</span><span class="str">fancy</span><span class="kw">}</span>
+<span class="kw">\fancyhf{}</span>
+<span class="kw">\fancyhead[L]{\textcolor{myBlue}{\textbf{Physics Notebook}}}</span>
+<span class="kw">\fancyhead[R]{\textcolor{gray}{\myname}}</span>
+<span class="kw">\fancyfoot[C]{\small Page~\thepage~of~\pageref{LastPage}}</span>
+<span class="kw">\renewcommand{\headrulewidth}{</span><span class="num">0.8pt</span><span class="kw">}</span>
+<span class="kw">\renewcommand{\footrulewidth}{</span><span class="num">0.3pt</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">document</span><span class="kw">}</span>
+
+<span class="cm">%--- TITLE PAGE ---</span>
+<span class="kw">\thispagestyle{</span><span class="str">empty</span><span class="kw">}</span>  <span class="cm">% Topic 13: No page number on title</span>
+<span class="kw">\begin{</span><span class="env">center</span><span class="kw">}</span>
+  <span class="kw">\vspace*{</span><span class="num">3cm</span><span class="kw">}</span>
+  <span class="kw">{\Huge\textcolor{myBlue}{\textbf{Meri Physics Notebook}}}</span>
+  <span class="kw">\vspace{</span><span class="num">0.5cm</span><span class="kw">}</span>
+  
+  <span class="kw">{\Large\textcolor{gray}{</span><span class="str">Class 12 — Mechanics aur Waves</span><span class="kw">}}</span>
+  <span class="kw">\vspace{</span><span class="num">1cm</span><span class="kw">}</span>
+  
+  <span class="kw">{\large \myname}</span> <span class="cm">% Topic 17: Custom command</span>
+  <span class="kw">\\[</span><span class="num">0.3cm</span><span class="kw">]</span>
+  <span class="kw">{\today}</span>
+<span class="kw">\end{</span><span class="env">center</span><span class="kw">}</span>
+<span class="kw">\newpage</span>
+
+<span class="cm">%--- TABLE OF CONTENTS (Topic 2) ---</span>
+<span class="kw">\pagenumbering{</span><span class="str">roman</span><span class="kw">}</span>  <span class="cm">% Topic 13: Roman numbers for TOC</span>
+<span class="kw">\tableofcontents</span>
+<span class="kw">\newpage</span>
+
+<span class="cm">%--- MAIN CONTENT ---</span>
+<span class="kw">\pagenumbering{</span><span class="str">arabic</span><span class="kw">}</span>  <span class="cm">% Topic 13: Arabic numbers for main</span>
+<span class="kw">\onehalfspacing</span>           <span class="cm">% Topic 7: 1.5 line spacing</span>
+
+<span class="cm">% ==================</span>
+<span class="kw">\section{</span><span class="str">Newton ke Niyam</span><span class="kw">}</span> <span class="kw">\label{</span><span class="str">sec:newton</span><span class="kw">}</span>
+<span class="cm">% Topic 1: Label lagaya</span>
+
+<span class="cm">% Topic 4: Introductory box</span>
+<span class="kw">\begin{</span><span class="env">mdframed</span><span class="kw">}[</span>
+  <span class="opt">backgroundcolor=myBlue!8,</span>
+  <span class="opt">linecolor=myBlue,</span>
+  <span class="opt">linewidth=1.5pt,</span>
+  <span class="opt">roundcorner=5pt</span>
+<span class="kw">]</span>
+<span class="kw">\textcolor{myBlue}{\textbf{</span><span class="str">Is Section Mein:</span><span class="kw">}}</span>
+Newton ke teen niyam sikhenge jo classical mechanics ki
+\important{neev} hain. <span class="cm">% Topic 17: custom command</span>
+<span class="kw">\end{</span><span class="env">mdframed</span><span class="kw">}</span>
+
+<span class="kw">\vspace{</span><span class="num">0.5cm</span><span class="kw">}</span>  <span class="cm">% Topic 7: Spacing</span>
+
+<span class="cm">% Topic 5: Definition</span>
+<span class="kw">\begin{</span><span class="env">definition</span><span class="kw">}</span>
+  \textbf{Bal (Force)} woh baahri prakriya hai jo kisi
+  vastu ki avastha (rest ya motion) badal sakti hai.
+  SI unit: \important{Newton (N)}  <span class="cm">% Topic 8: special</span>
+  <span class="kw">$\rightarrow$</span> 1 N = 1 kg$\cdot$m/s$^2$
+<span class="kw">\end{</span><span class="env">definition</span><span class="kw">}</span>
+
+<span class="cm">% Topic 6: Comment (sirf file mein dikh raha, PDF mein nahi)</span>
+<span class="cm">% TODO: Newton ka doosra niyam aur diagram add karna hai</span>
+
+<span class="cm">% Topic 5: Theorem</span>
+<span class="kw">\begin{</span><span class="env">theorem</span><span class="kw">}[</span><span class="opt">Newton ka Doosra Niyam</span><span class="kw">]</span>
+<span class="kw">\label{</span><span class="str">thm:newton2</span><span class="kw">}</span>  <span class="cm">% Topic 1: Label</span>
+  Kisi vastu par lagne wala net force uski mass aur
+  acceleration ka product hota hai:
+  <span class="kw">\begin{</span><span class="env">equation</span><span class="kw">}</span>
+    \vec{F} = m\vec{a}  \label{eq:newton2}
+  <span class="kw">\end{</span><span class="env">equation</span><span class="kw">}</span>
+<span class="kw">\end{</span><span class="env">theorem</span><span class="kw">}</span>
+
+<span class="kw">\begin{</span><span class="env">proof</span><span class="kw">}</span>
+  Yeh ek empirical law hai --- experimental observations
+  se derive kiya gaya hai.\footnote{Newton ne yeh 1687 mein
+  Principia Mathematica mein publish kiya.}  <span class="cm">% Topic 14</span>
+<span class="kw">\end{</span><span class="env">proof</span><span class="kw">}</span>
+
+Jaise humne Theorem~<span class="kw">\ref{</span><span class="str">thm:newton2</span><span class="kw">}</span> mein dekha 
+(Equation~<span class="kw">\ref{</span><span class="str">eq:newton2</span><span class="kw">}</span>), yeh mechanics ka aadhar hai.
+<span class="cm">% Topic 1: Cross-referencing</span>
+
+<span class="kw">\subsection{</span><span class="str">Teen Niyam Ek Saath</span><span class="kw">}</span>
+
+<span class="cm">% Topic 11: Multicols</span>
+<span class="kw">\begin{</span><span class="env">multicols</span><span class="kw">}{</span><span class="num">3</span><span class="kw">}</span>
+
+<span class="kw">\textcolor{myBlue}{\textbf{</span><span class="str">Pehla Niyam</span><span class="kw">}}</span>
+
+Har vastu apni avastha mein tab tak rahti hai jab tak
+baahri bal na lage.
+
+<span class="kw">\columnbreak</span>
+
+<span class="kw">\textcolor{myGold}{\textbf{</span><span class="str">Doosra Niyam</span><span class="kw">}}</span>
+
+$\vec{F} = m\vec{a}$ --- force mass aur acceleration
+ka product hai.
+
+<span class="kw">\columnbreak</span>
+
+<span class="kw">\textcolor{red}{\textbf{</span><span class="str">Teesra Niyam</span><span class="kw">}}</span>
+
+Har action ka ek barabar aur ulta reaction hota hai.
+<span class="kw">\end{</span><span class="env">multicols</span><span class="kw">}</span>
+
+<span class="cm">% ==================</span>
+<span class="kw">\section{</span><span class="str">Prayog aur Formula</span><span class="kw">}</span>
+
+<span class="cm">% Topic 12: Minipages side by side</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}[t]{</span><span class="num">0.48\textwidth</span><span class="kw">}</span>
+  <span class="kw">\begin{</span><span class="env">mdframed</span><span class="kw">}[</span><span class="opt">backgroundcolor=green!8, linecolor=green!60!black</span><span class="kw">]</span>
+  <span class="kw">\textbf{</span><span class="str">Prayog 1: Free Fall</span><span class="kw">}</span>
+  
+  Ek ball $h = 20$ m se giraye.\\  <span class="cm">% Topic 9: Line break</span>
+  $g = 9.8$ m/s$^2$\\
+  Time: $t = \sqrt{2h/g} \approx 2.02$ s
+  <span class="kw">\end{</span><span class="env">mdframed</span><span class="kw">}</span>
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+<span class="kw">\hfill</span>
+<span class="kw">\begin{</span><span class="env">minipage</span><span class="kw">}[t]{</span><span class="num">0.48\textwidth</span><span class="kw">}</span>
+  <span class="kw">\begin{</span><span class="env">mdframed</span><span class="kw">}[</span><span class="opt">backgroundcolor=orange!8, linecolor=orange!80!black</span><span class="kw">]</span>
+  <span class="kw">\textbf{</span><span class="str">Prayog 2: Projectile</span><span class="kw">}</span>
+  
+  Range: $R = \frac{v_0^2 \sin 2\theta}{g}$\\
+  Max Height: $H = \frac{v_0^2 \sin^2\theta}{2g}$
+  <span class="kw">\end{</span><span class="env">mdframed</span><span class="kw">}</span>
+<span class="kw">\end{</span><span class="env">minipage</span><span class="kw">}</span>
+
+<span class="kw">\vspace{</span><span class="num">1cm</span><span class="kw">}</span>
+
+<span class="cm">% Topic 10: Column switch + Topic 3: Colours</span>
+<span class="kw">\noindent\textcolor{myGold}{\rule{\textwidth}{1.5pt}}</span>
+
+<span class="kw">\bigskip</span>  <span class="cm">% Topic 7: Spacing</span>
+
+<span class="kw">\begin{</span><span class="env">remark</span><span class="kw">}</span>
+  Section~<span class="kw">\ref{</span><span class="str">sec:newton</span><span class="kw">}</span> mein padhiye ke kaise $F$, $m$,
+  aur $a$ ek doosre se related hain.\footnote{Iske liye 
+  calculus ka basic knowledge zaroori hai.}  <span class="cm">% Topic 14</span>
+<span class="kw">\end{</span><span class="env">remark</span><span class="kw">}</span>
+
+<span class="cm">% Topic 8: Special characters in text</span>
+<span class="kw">\bigskip</span>
+
+\noindent \textit{Note:} Yeh formulas \important{SI 
+units}\footnote{SI = Syst\`{e}me International d'unit\'{e}s} 
+mein hain. Percent accuracy: $\pm$5\%.  <span class="cm">% Topic 8: \%</span>
+
+<span class="kw">\end{</span><span class="env">document</span><span class="kw">}</span></code></pre>
+
+  <div class="box box-info" style="margin-top:24px;">
+    <div class="box-title">📌 Is Project Mein Kya Kya Use Hua</div>
+    <table>
+      <tr><th>Topic</th><th>Kahan Use Hua</th></tr>
+      <tr><td>1. Labelling</td><td><code>\label{sec:newton}</code>, <code>\ref{thm:newton2}</code></td></tr>
+      <tr><td>2. Table of Contents</td><td><code>\tableofcontents</code></td></tr>
+      <tr><td>3. Coloured Text</td><td><code>\textcolor{myBlue}{...}</code>, <code>\definecolor</code></td></tr>
+      <tr><td>4. Boxes</td><td><code>mdframed</code> environment</td></tr>
+      <tr><td>5. Theorems</td><td><code>theorem</code>, <code>definition</code>, <code>proof</code>, <code>remark</code></td></tr>
+      <tr><td>6. Comments</td><td><code>% TODO: ...</code> notes</td></tr>
+      <tr><td>7. Spacing</td><td><code>\onehalfspacing</code>, <code>\vspace</code>, <code>\bigskip</code></td></tr>
+      <tr><td>8. Special Characters</td><td><code>\%</code>, <code>\&amp;</code>, math symbols</td></tr>
+      <tr><td>9. Line Breaking</td><td><code>\\</code>, <code>\newpage</code></td></tr>
+      <tr><td>10. Columns</td><td>Document structure</td></tr>
+      <tr><td>11. Multi-columns</td><td><code>multicols{3}</code> for three laws</td></tr>
+      <tr><td>12. Minipages</td><td>Side-by-side experiments</td></tr>
+      <tr><td>13. Page Numbering</td><td><code>\pagenumbering{roman}</code> phir <code>arabic</code></td></tr>
+      <tr><td>14. Footnotes</td><td><code>\footnote{...}</code></td></tr>
+      <tr><td>15 & 16. Headers/Footers</td><td><code>fancyhdr</code> with left/right/center</td></tr>
+      <tr><td>17. Shortcuts</td><td><code>\important{}</code>, <code>\myname</code>, <code>\R</code></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- FINAL NOTE -->
+<div style="margin-top:50px; padding:24px; background:rgba(108,99,255,0.08); border-radius:12px; border:1px solid rgba(108,99,255,0.2); text-align:center;">
+  <p style="font-size:1.1em; font-weight:600; color:var(--accent); margin-bottom:10px;">🎓 Congratulations! Tum ab LaTeX ke 17 important topics seekh chuke ho!</p>
+  <p style="color:var(--text-muted);">Overleaf pe jaao → New Project → Blank → Yeh code paste karo → Compile karo → Dekho jadoo! ✨<br>
+  Baar baar practice karo — har baar kuch naya seekhoge.</p>
+  <p style="margin-top:14px; color:var(--text-muted); font-size:0.9em;">
+    📚 Aur topics: <a href="https://www.overleaf.com/learn" style="color:var(--accent);">overleaf.com/learn</a>
+  </p>
+</div>
+
+</main>
+</div>
+
+</body>
+</html>
