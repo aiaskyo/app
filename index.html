@@ -249,11 +249,14 @@ footer a:hover{color:var(--accent);}
 </head>
 
 <body>
-   <!-- Auto Popup -->
+   
+<!-- Auto Popup -->
 <div id="popup" class="popup">
   <div class="popup-box">
-    
-    <h2>Visit Our Blogger Website</h2>
+
+    <h2 class="popup-title">
+      Visit Our Blogger Website
+    </h2>
 
     <a href="https://studifymcq.blogspot.com" target="_blank">
       <button class="blog-btn">Open Blog</button>
@@ -285,11 +288,19 @@ footer a:hover{color:var(--accent);}
 .popup-box{
   background:white;
   padding:25px;
-  border-radius:12px;
+  border-radius:15px;
   width:320px;
   text-align:center;
   box-shadow:0 0 20px rgba(0,0,0,0.3);
   font-family:Arial;
+}
+
+/* Title Color */
+.popup-title{
+  color:#007bff;
+  font-size:28px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 
 .blog-btn{
@@ -302,6 +313,10 @@ footer a:hover{color:var(--accent);}
   font-size:16px;
 }
 
+.blog-btn:hover{
+  background:#0056b3;
+}
+
 .close-btn{
   padding:10px 20px;
   background:red;
@@ -309,6 +324,10 @@ footer a:hover{color:var(--accent);}
   border:none;
   border-radius:8px;
   cursor:pointer;
+}
+
+.close-btn:hover{
+  background:darkred;
 }
 </style>
 
